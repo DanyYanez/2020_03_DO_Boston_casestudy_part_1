@@ -1,19 +1,17 @@
-pipeline {
-	agent any
-	stages {
-		stage('SCM Checkout') {
-			steps {
-				script {
-					sh 'git clone https://github.com/DanyYanez/2020_03_DO_Boston_casestudy_part_1 capstone_proyect'
-				}
-			}
-		}
-		stage('Compile-Package-Test') {
-			steps {
-				script {
-					sh "python web.py"
-				}
-			}
-		}
+// Powered by Infostretch 
+
+timestamps {
+
+node () {
+
+	stage ('flask_python - Checkout') {
+ 	 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/DanyYanez/exercise.python_flask-heroku-deployment']]]) 
 	}
+	stage ('flask_python - Build') {
+ 			// Shell build step
+sh """ 
+python3 web.py 
+ """ 
+	}
+}
 }
