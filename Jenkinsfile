@@ -24,8 +24,8 @@ pipeline {
 
 			//  Pushing Image to Repository
 			docker.withRegistry( '', REGISTRY_CREDENTIAL ) {
-				sh 'docker push danyyanez/flask-docker-app-jenkins-pipeline:$BUILD_NUMBER'
-				sh 'docker push danyyanez/flask-docker-app-jenkins-pipeline:latest'
+				sh 'docker push danyyanez/sba_kuber:$BUILD_NUMBER'
+				sh 'docker push danyyanez/sba_kuber:latest'
 			}
                 
                 	echo "Image built and pushed to repository"
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script{
                     //sh 'BUILD_NUMBER = ${BUILD_NUMBER}'
-                    if (BUILD_NUMBER == "10") {
+                    if (BUILD_NUMBER == "1") {
                         sh 'docker run --name $CONTAINER_NAME -d -p 6000:6000 $DOCKER_HUB_REPO'
                     }
                     else {
